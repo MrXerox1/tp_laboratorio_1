@@ -34,25 +34,30 @@ int main(void)
 	int resultadoFactorialY=NUM_SIN_CARGA;
 	do
 	{
+		//muestra el menu
 		if(mostrarMenu(numeroX,numeroY)==RETORNO_EXITOSO)
 			{
+			//se da a elegir opcion del menu
 			printf("elija una opcion \n");
 			scanf("%d",&opciones);
 			switch(opciones)
 			{
 			case 1:
+				//ingresa numero A
 				if(getInt(&numeroX,MAX_NUMERO,MIN_NUMERO,REINT_NUMERO,MENSAJE,MENSAJE_ERROR)==RETORNO_EXITOSO)
 				{
 					retorno=RETORNO_EXITOSO;
 				}
 				break;
 			case 2:
+				//ingresa numero B
 				if(getInt(&numeroY,MAX_NUMERO,MIN_NUMERO,REINT_NUMERO,MENSAJE,MENSAJE_ERROR)==RETORNO_EXITOSO)
 				{
 					retorno=RETORNO_EXITOSO;
 				}
 				break;
 			case 3:
+				//lama a la funcion que calcula las operaciones
 				if(CalcularOperaciones(numeroX,numeroY,&resultadoSuma,&resultadoResta,&resultadoDivision,
 						&resultadoProducto,&resultadoFactorialX,&resultadoFactorialY)==RETORNO_EXITOSO)
 				{
@@ -60,18 +65,22 @@ int main(void)
 				}
 				break;
 			case 4:
-				if(resultadoSuma != NUM_SIN_CARGA && mostrarResultados(numeroY,resultadoSuma,resultadoResta,resultadoDivision,resultadoProducto,
-						resultadoFactorialX,resultadoFactorialY)==RETORNO_EXITOSO)
+				//llama a la funcion mostrarResultados
+				if(mostrarResultados(numeroY,resultadoSuma,resultadoResta,
+					resultadoDivision,resultadoProducto,resultadoFactorialX,
+					resultadoFactorialY)==RETORNO_EXITOSO)
 				{
 					retorno=RETORNO_EXITOSO;
 				}
 				break;
 			case 5:
+				//mensaje de confirmacion de salida
 				printf("\nEsta seguro que quiere salir? (s/n) \n");
 				__fpurge(stdin);
 				scanf("%c",&confirmacion);
 				break;
 			default:
+				//default para cualquier cosa igresada que no este contemplada
 				printf("error ingreso incorrecto");
 				break;
 			}

@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "utn.h"
-
+//muestra el menu en consola
 float mostrarMenu(float numeroX, float numeroY){
 	printf("\n1. Ingresar 1er operando (A=%f)\n",numeroX);
 	printf("2. Ingresar 2do operando (B=%f)\n",numeroY);
@@ -25,7 +25,7 @@ float mostrarMenu(float numeroX, float numeroY){
 	printf("5. Salir\n");
 return 0;
 }
-
+// pide un numero float
 float getInt(float *resultado,float maximo,float minimo,float reintentos,char* mensaje, char* mensajeError)
 {
 	float numero;
@@ -44,7 +44,7 @@ float getInt(float *resultado,float maximo,float minimo,float reintentos,char* m
 	}while(reintentos >= 0);
 	return retorno;
 }
-
+//muestra los resultados en consola
 float mostrarResultados(float numeroY,float resultadoSuma,
 		float resultadoResta, float resultadoDivision, float resultadoProducto,
 		int resultadoFactorialX, int resultadoFactorialY)
@@ -63,24 +63,25 @@ float mostrarResultados(float numeroY,float resultadoSuma,
 
 	return retorno;
 }
+//suma de numeros A y B
 float getSuma(float numeX,float numeY, float *resultSuma)
 {
     *resultSuma=numeX+numeY;
     return RETORNO_EXITOSO;
 }
-
+//resta de numeros A y B
 float getResta(float numeroX,float numeroY, float *resultadoResta)
 {
     *resultadoResta=numeroX-numeroY;
     return RETORNO_EXITOSO;
 }
-
+//multiplicacion de numeros A y B
 float getProducto(float numeroX,float numeroY, float *resultadoProducto)
 {
 	*resultadoProducto=numeroX*numeroY;
 	return RETORNO_EXITOSO;
 }
-
+//division de numeros A y B
 float getDivision(float numeroX,float numeroY, float *resultadoDivision)
 {
 	float retorno=ERROR_UNO;
@@ -91,7 +92,7 @@ float getDivision(float numeroX,float numeroY, float *resultadoDivision)
 	}
 	return retorno;
 }
-
+//conseguir factorial para numero A o B
 float getFactorial(float Numero, int *Presultado)
 {
 	int acumulador=1;
@@ -112,6 +113,7 @@ float getFactorial(float Numero, int *Presultado)
 	    }
 	return retorno;
 }
+//calcula todas las operaciones con los mismos valores y tira un valor de error especifico si no se logra alguna
 float CalcularOperaciones(float numeroX, float numeroY, float *resultadoSuma, float*resultadoResta, float*resultadoDivision,
 		float *resultadoProducto,int *resultadoFactorialX, int *resultadoFactorialY)
 {

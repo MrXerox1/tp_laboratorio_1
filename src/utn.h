@@ -7,7 +7,7 @@
 
 #ifndef UTN_H_
 #define UTN_H_
-
+//codigos de error
 #define ERROR_UNO -1.0
 #define ERROR_SUMA -2.0
 #define ERROR_RESTA -3.0
@@ -16,6 +16,7 @@
 #define ERROR_FACTORIAL_X -6.0
 #define ERROR_FACTORIAL_Y -7.0
 #define RETORNO_EXITOSO 0.0
+//prototipos
 float mostrarMenu(float numeroX, float numeroY);
 float getSuma(float numeX,float numeY, float *resultSuma);
 float getResta(float numeroX,float numeroY, float *resultadoResta);
