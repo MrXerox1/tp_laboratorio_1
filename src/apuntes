@@ -1,5 +1,0 @@
-printf("a) “El resultado de A+B es: r”");
-printf("b) “El resultado de A-B es: r”");
-printf("c) “El resultado de A/B es: r” o “No es posible dividir por cero”");
-printf("d) “El resultado de A*B es: r”");
-printf("e) “El factorial de A es: r1 y El factorial de B es: r2”");
