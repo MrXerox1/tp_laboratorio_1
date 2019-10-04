@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio_ext.h>
+#include <string.h>
 #include "biblioteca_sergio.h"
 #include "libreria_empleado.h"
 #define MENSAJE "ingrese id "
@@ -21,7 +22,7 @@ int mostrarMenu() {
 	printf("2. MODIFICAR DATOS DEL empleado\n");
 	printf("3. BAJA DEL empleado\n");
 	printf("4. INFORMAR:\n1. Listado de los empleados ordenados alfabéticamente por Apellido y Sector.\n2. Total y promedio de los salarios, y cuántos empleados superan el salario promedio. ");
-	printf("7. SALIR\n");
+	printf("5. SALIR\n");
 	return retorno;
 }
 
@@ -128,7 +129,6 @@ int modificarPorId(datosPersonales empleado[], int contadorId) {
 	int indice;
 	int opcion;
 	__fpurge(stdin);
-	;
 	if (getInt(&id, contadorId, MINIMO, REINTENTOS, MENSAJE, MENSAJE_ERROR)
 			== 0) {
 		if (empleadoBuscarID(empleado, contadorId, id, &indice) == 0) {
@@ -141,10 +141,8 @@ int modificarPorId(datosPersonales empleado[], int contadorId) {
 				printf("\n4)salario %f", empleado[indice].salario);
 				printf("\n5)SALIR\n");
 				__fpurge(stdin);
-				;
 				scanf("%d", &opcion);
 				__fpurge(stdin);
-				;
 				switch (opcion) {
 				case 1:
 					__fpurge(stdin);
@@ -160,11 +158,6 @@ int modificarPorId(datosPersonales empleado[], int contadorId) {
 							sizeof(empleado[indice].apellido),
 							stdin);
 
-					break;
-					__fpurge(stdin);
-
-					printf("\nIngrese sector \n");
-					scanf("%d", &empleado[indice].sector);
 					break;
 				case 3:
 					__fpurge(stdin);
@@ -217,7 +210,6 @@ int bajaEmpleado(datosPersonales empleado[], int contadorId) {
 	int id;
 	int indice;
 	__fpurge(stdin);
-	;
 	if (getInt(&id, contadorId, MINIMO, REINTENTOS, MENSAJE,
 	MENSAJE_ERROR) == RETORNO_EXITOSO) {
 		if (empleadoBuscarID(empleado, contadorId, id,
@@ -252,7 +244,7 @@ void mostrarOrdenado(datosPersonales lista[],int size)
     {
         if(lista[i].isEmpty==LLENO)
         {//no se el por que a veces aparecen warnigs aca pero desaparecen al copilar de nuevo.
-            printf("\n APELLIDO: %s \t NOMBRE: %s \salario: %f \t sector: %d",lista[i].apellido,lista[i].nombre,lista[i].salario,lista[i].sector);
+            printf("\n APELLIDO: %s \t NOMBRE: %s \t salario: %f \t sector: %d",lista[i].apellido,lista[i].nombre,lista[i].salario,lista[i].sector);
         }
     }
     printf("\n");
@@ -262,15 +254,18 @@ int mostrarSalarioPromedio(datosPersonales lista[],int size)
 {
 	int retorno=ERROR;
     int i;
+    int contadorActivos=0;
     datosPersonales acum;
     acum.salario = 0;
     	for(i=0; i<=size; i++)
     	{
     		if(lista[i].isEmpty==LLENO)
     		{
+    		contadorActivos++;
     		acum.salario=lista[i].salario + acum.salario;
     		}
     	}
+    	acum.salario=acum.salario/contadorActivos;
     	  printf("\n promedios de salario: %f",acum.salario);
     	  retorno=RETORNO_EXITOSO;
     return retorno;

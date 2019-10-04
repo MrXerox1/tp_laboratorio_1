@@ -42,8 +42,8 @@ int main()
 
 		case 4:
 			//no se el por que a veces aparecen warnigs aca pero desaparecen al copilar de nuevo.
-			mostrarSalarioPromedio(arrayEmpleado,QTY_TIPO);
 			mostrarOrdenado(arrayEmpleado,QTY_TIPO);
+			mostrarSalarioPromedio(arrayEmpleado,QTY_TIPO);
 			break;
 		case 5:
 			printf("a elegido salir del programa");
