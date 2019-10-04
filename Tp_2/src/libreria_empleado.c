@@ -16,28 +16,32 @@
 #define MINIMO 0
 #define REINTENTOS 2
 
-int mostrarMenu() {
+int mostrarMenu()
+{
 	int retorno = ERROR;
 	printf("\n1. alta del empleado\n");
 	printf("2. MODIFICAR DATOS DEL empleado\n");
 	printf("3. BAJA DEL empleado\n");
 	printf("4. INFORMAR:\n1. Listado de los empleados ordenados alfabéticamente por Apellido y Sector.\n2. Total y promedio de los salarios, y cuántos empleados superan el salario promedio. ");
 	printf("5. SALIR\n");
+	retorno = RETORNO_EXITOSO;
 	return retorno;
 }
 
-int empleado_Inicializar(datosPersonales empleado[], int size) {
-	int retorno = -1;
+int empleado_Inicializar(datosPersonales empleado[], int size)
+{
+	int retorno = ERROR;
 	if (empleado != NULL && size > 0) {
 		for (; size > 0; size--) {
 			empleado[size - 1].isEmpty = VACIO;
 		}
-		retorno = 0;
+		retorno = RETORNO_EXITOSO;
 	}
 	return retorno;
 }
 
-int ingresoEmpleado(datosPersonales *empleado) {
+int ingresoEmpleado(datosPersonales *empleado)
+{
 	int retorno = ERROR;
 
 	datosPersonales aux;
@@ -66,13 +70,17 @@ int ingresoEmpleado(datosPersonales *empleado) {
 	return retorno;
 }
 
-int empleadoAlta(datosPersonales *empleado, int size, int *contadorID) {
+int empleadoAlta(datosPersonales *empleado, int size, int *contadorID)
+{
 	int retorno = ERROR;
 	int posicion;
-	if (empleado != NULL && size > 0 && contadorID != NULL) {
-		if (empleadoBuscarEmpty(empleado, size, &posicion) == ERROR) {
+	if (empleado != NULL && size > 0 && contadorID != NULL)
+	{
+		if (empleadoBuscarEmpty(empleado, size, &posicion) == ERROR)
+		{
 			printf("\nNo hay lugares vacios");
-		} else {
+		} else
+		{
 			(*contadorID)++;
 			ingresoEmpleado(&empleado[posicion]);
 			empleado[posicion].idempleado = *contadorID;
@@ -89,12 +97,16 @@ int empleadoAlta(datosPersonales *empleado, int size, int *contadorID) {
 	return retorno;
 }
 
-int empleadoBuscarEmpty(datosPersonales empleado[], int size, int *posicion) {
+int empleadoBuscarEmpty(datosPersonales empleado[], int size, int *posicion)
+{
 	int retorno = ERROR;
 	int i;
-	if (empleado != NULL && size >= 0 && posicion != NULL) {
-		for (i = 0; i < size; i++) {
-			if (empleado[i].isEmpty == VACIO) {
+	if (empleado != NULL && size >= 0 && posicion != NULL)
+	{
+		for (i = 0; i < size; i++)
+		{
+			if (empleado[i].isEmpty == VACIO)
+			{
 				retorno = RETORNO_EXITOSO;
 				*posicion = i;
 				break;
@@ -105,15 +117,20 @@ int empleadoBuscarEmpty(datosPersonales empleado[], int size, int *posicion) {
 }
 
 int empleadoBuscarID(datosPersonales empleado[], int size, int valorBuscado,
-		int *posicion) {
+		int *posicion)
+{
+	__fpurge(stdin);
 	int retorno = ERROR;
 	int i;
-	if (empleado != NULL && size >= 0) {
-		for (i = 0; i < size; i++) {
+	if (empleado != NULL && size >= 0)
+	{
+		for (i = 0; i < size; i++)
+		{
 			if (empleado[i].isEmpty == VACIO)
 				continue;
-			else if (empleado[i].idempleado == valorBuscado) {
-				retorno = 0;
+			else if (empleado[i].idempleado == valorBuscado)
+			{
+				retorno = RETORNO_EXITOSO;
 				*posicion = i;
 				break;
 			}
@@ -122,7 +139,8 @@ int empleadoBuscarID(datosPersonales empleado[], int size, int valorBuscado,
 	return retorno;
 }
 
-int modificarPorId(datosPersonales empleado[], int contadorId) {
+int modificarPorId(datosPersonales empleado[], int contadorId)
+{
 	int retorno = ERROR;
 	int id;
 	char salir = 'n';
@@ -183,20 +201,24 @@ int modificarPorId(datosPersonales empleado[], int contadorId) {
 		} else {
 			printf("error al modificar");
 		}
+		retorno = RETORNO_EXITOSO;
 	}
 
 	return retorno;
 }
 
-int listarEmpleados(datosPersonales empleado[], int size) {
+int listarEmpleados(datosPersonales empleado[], int size)
+{
 	int retorno = ERROR;
 	int i;
-	if (empleado != NULL && size >= 0) {
-		for (i = 0; i < size; i++) {
+	if (empleado != NULL && size >= 0)
+	{
+		for (i = 0; i < size; i++)
+		{
 			if (empleado[i].isEmpty == VACIO)
 				continue;
 			else
-				printf("\n nombre:%s\n apellido:%s\n salario:%f\n sector:%d\nidempleado:%d\nisEmpty:%d\n", empleado[i].nombre,
+				printf("\n nombre:%s\t apellido:%s\t salario:%f\t sector:%d\t idempleado:%d \t isEmpty:%d\n", empleado[i].nombre,
 						empleado[i].apellido, empleado[i].salario, empleado[i].sector,
 						empleado[i].idempleado, empleado[i].isEmpty);
 		}
@@ -224,6 +246,7 @@ int bajaEmpleado(datosPersonales empleado[], int contadorId) {
 	}
 	return retorno;
 }
+
 void mostrarOrdenado(datosPersonales lista[],int size)
 {
     int i,j;
@@ -257,6 +280,7 @@ int mostrarSalarioPromedio(datosPersonales lista[],int size)
     int contadorActivos=0;
     datosPersonales acum;
     acum.salario = 0;
+    __fpurge(stdin);
     	for(i=0; i<=size; i++)
     	{
     		if(lista[i].isEmpty==LLENO)
@@ -269,5 +293,23 @@ int mostrarSalarioPromedio(datosPersonales lista[],int size)
     	  printf("\n promedios de salario: %f",acum.salario);
     	  retorno=RETORNO_EXITOSO;
     return retorno;
+}
+
+int ConfirmarDatoCargado(datosPersonales empleado[], int size)
+{
+	int retorno = ERROR;
+	int i;
+	if (empleado != NULL && size >= 0)
+	{
+		for (i = 0; i < size; i++)
+		{
+			if (empleado[i].isEmpty == LLENO)
+			{
+				retorno = RETORNO_EXITOSO;
+				break;
+			}
+		}
+	}
+	return retorno;
 }
 

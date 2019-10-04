@@ -36,6 +36,7 @@ int modificarPorId(datosPersonales empleado[],int contadorId);
 int bajaEmpleado(datosPersonales empleado[], int contadorId);
 void mostrarOrdenado(datosPersonales lista[],int size);
 int mostrarSalarioPromedio(datosPersonales lista[],int size);
+int ConfirmarDatoCargado(datosPersonales empleado[], int size);
 
 
 
