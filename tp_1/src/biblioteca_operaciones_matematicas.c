@@ -96,9 +96,9 @@ float getDivision(float numeroX,float numeroY, float *resultadoDivision)
 float getFactorial(float Numero, int *Presultado)
 {
 	int acumulador=1;
-	int numero= Numero;
+	int numero = Numero;
 	int  factor;
-	float retorno=ERROR_UNO;
+	float retorno = ERROR_UNO;
 	if (numero < 0)
 	{
 	        printf("Error, no se puede hacer factorial de negativos.");
@@ -127,48 +127,54 @@ float CalcularOperaciones(float numeroX, float numeroY, float *resultadoSuma, fl
 
 	if(getSuma(numeroX,numeroY,&resultSuma)==0)
 	{
-		*resultadoSuma=resultSuma;
-		retorno=RETORNO_EXITOSO;
-	}else{
-		retorno=ERROR_SUMA;
+		*resultadoSuma = resultSuma;
+		retorno = RETORNO_EXITOSO;
+	}else
+	{
+		retorno = ERROR_SUMA;
 	}
 	if(getResta(numeroX,numeroY,&resultResta)==0)
 	{
-		*resultadoResta=resultResta;
-		retorno=RETORNO_EXITOSO;
+		*resultadoResta = resultResta;
+		retorno = RETORNO_EXITOSO;
 	}
-	else{
-		retorno=ERROR_RESTA;
+	else
+	{
+		retorno = ERROR_RESTA;
 	}
 	if(getDivision(numeroX,numeroY,&resultDivision)==0)
 	{
 		*resultadoDivision=resultDivision;
-		retorno=RETORNO_EXITOSO;
-	}else{
-		retorno=ERROR_DIVISION;
+		retorno = RETORNO_EXITOSO;
+	}else
+	{
+		retorno = ERROR_DIVISION;
 	}
 	if(getProducto(numeroX,numeroY,&resultProducto)==0)
 	{
-		*resultadoProducto=resultProducto;
-		retorno=RETORNO_EXITOSO;
-	}else{
-		retorno=ERROR_PRODUCTO;
+		*resultadoProducto = resultProducto;
+		retorno = RETORNO_EXITOSO;
+	}else
+	{
+		retorno = ERROR_PRODUCTO;
 
 	}
 	if(getFactorial(numeroX,&resultFactorialX)==0)
 	{
 		*resultadoFactorialX=resultFactorialX;
-		retorno=RETORNO_EXITOSO;
-	}else{
-		retorno=ERROR_FACTORIAL_X;
+		retorno = RETORNO_EXITOSO;
+	}else
+	{
+		retorno = ERROR_FACTORIAL_X;
 
 	}
 	if(	getFactorial(numeroY,&resultFactorialY)==0)
 	{
-		*resultadoFactorialY=resultFactorialY;
-		retorno=RETORNO_EXITOSO;
-	}else{
-		retorno=ERROR_FACTORIAL_Y;
+		*resultadoFactorialY = resultFactorialY;
+		retorno = RETORNO_EXITOSO;
+	}else
+	{
+		retorno = ERROR_FACTORIAL_Y;
 	}
 	return retorno;
 }
