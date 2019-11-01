@@ -5,7 +5,6 @@
 #include "Employee.h"
 #include "utn.h"
 static int isValidIdString(char *id);
-static int isValidNombre(char *nombre);
 static int isValidhorasTrabaString(char *horasTrabajadas);
 static int isValidSueldoString(char *sueldo);
 
@@ -31,6 +30,7 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 		}
 		else
 		{
+			printf("borre %s\n",idStr);
 			employee_delete(this);
 		}
 	}
@@ -38,7 +38,7 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 	return retorno;
 }
 
-int employee_getIdString(Employee *this,char *id)
+int employee_setIdString(Employee *this,char *id)
 {
 	int retorno = ERROR;
 
@@ -51,7 +51,7 @@ int employee_getIdString(Employee *this,char *id)
 	return retorno;
 }
 
-int employee_setIdString(Employee *this,char *id)
+int employee_getIdString(Employee *this,char *id)
 {
 	int retorno = ERROR;
 
@@ -83,9 +83,9 @@ int employee_setNombre(Employee* this,char* nombre)
 {
 	int retorno = EXIT_ERROR;
 
-	if(this != NULL && isValidNombre(nombre))
+	if(this != NULL)
 	{
-		strcpy(this->nombre,nombre);
+		strcpy(nombre,this->nombre);
 		retorno = EXIT_SUCCESS;
 	}
 
@@ -98,27 +98,14 @@ int employee_getNombre(Employee* this,char* nombre)
 
 	if(this != NULL && nombre != NULL)
 	{
-		strcpy(nombre,this->nombre);
+		strcpy(this->nombre,nombre);
 		retorno = EXIT_SUCCESS;
 	}
 
 	return retorno;
 }
 
-static int isValidNombre(char *nombre)
-{
-	int retorno = EXIT_ERROR;
-
-	if(nombre != NULL)
-	{
-		esNombreOApellido(nombre,"\nERROR_NOMBRE");
-		retorno = EXIT_SUCCESS;
-	}
-
-	return retorno;
-}
-
-int employee_setHorasTrabajadasString(Employee* this,char *horasTrabajadas){
+int employee_getHorasTrabajadasString(Employee* this,char *horasTrabajadas){
 	int retorno = ERROR;
 
 		if(this != NULL && horasTrabajadas != NULL)
@@ -129,7 +116,7 @@ int employee_setHorasTrabajadasString(Employee* this,char *horasTrabajadas){
 
 		return retorno;
 }
-int employee_getHorasTrabajadasString(Employee* this,char *horasTrabajadas){
+int employee_setHorasTrabajadasString(Employee* this,char *horasTrabajadas){
 	int retorno = ERROR;
 
 		if(this != NULL && isValidhorasTrabaString(horasTrabajadas))
@@ -156,7 +143,7 @@ static int isValidhorasTrabaString(char *horasTrabajadas)
 	return retorno;
 }
 
-int employee_setSueldoString(Employee* this,char* sueldo)
+int employee_getSueldoString(Employee* this,char* sueldo)
 {
 	int retorno = ERROR;
 
@@ -168,7 +155,7 @@ int employee_setSueldoString(Employee* this,char* sueldo)
 
 			return retorno;
 }
-int employee_getSueldoString(Employee* this,char* sueldo)
+int employee_setSueldoString(Employee* this,char* sueldo)
 {
 	int retorno = ERROR;
 

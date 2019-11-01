@@ -153,21 +153,16 @@ int getChar(	char *pResultado,
 int esNombreOApellido(char *pResultado,char *pMensajeError)
 {
 	int retorno = EXIT_ERROR;
-	int posArray=0;
-
-	while(pResultado[posArray] != '\0')
-	{
-		if((pResultado[posArray] != ' ') && (pResultado[posArray] < 'a' || pResultado[posArray] > 'z') &&
-			(pResultado[posArray] < 'A' || pResultado[posArray] > 'Z'))
-		{
-			printf("%s",pMensajeError);
-			retorno = EXIT_ERROR;
-			break;
-		}
-		posArray++;
-		retorno = EXIT_SUCCESS;
-	}
-	return retorno;
+    int i=0;
+    while(pResultado[i]!='\0')
+    {
+        if(((pResultado[i]!=' ')||(pResultado[i]!='-') )&&(pResultado[i]<'a'||pResultado[i]>'z')&&(pResultado[i]<'A'||pResultado[i]>'Z'))
+        {
+            retorno = EXIT_SUCCESS;
+        }
+        i++;
+    }
+    return retorno;
 }
 
 int esSoloNumeros(char *pResultado,char *pMensajeError)

@@ -37,7 +37,18 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+	FILE *pfile;
+	pfile = fopen(path, "rb");
+	if (pfile == NULL)
+	{
+		printf("el archivo no existe");
+		exit(ERROR);
+	} else
+	{
+		parser_EmployeeFromBinary(pfile, pArrayListEmployee);
+	}
+	fclose(pfile);
+	return RETORNO_EXITOSO;
 }
 
 /** \brief Alta de empleados

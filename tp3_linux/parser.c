@@ -10,21 +10,38 @@
  * \return int
  *
  */
-int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
+int parser_EmployeeFromText(FILE *pFile, LinkedList *pArrayListEmployee)
 {
-		int r;
-		char idStr[50],nombreStr[50],horasTrabajadasStr[50],sueldoStr[50];
-
-		do
+	int retorno=ERROR;
+	int r;
+	Employee* empleado;
+	char idStr[50], nombreStr[50], horasTrabajadasStr[50], sueldoStr[50];
+	r = fscanf(pFile, "%[^,],%[^,],%[^,],%[^\n]\n", idStr, nombreStr,
+					horasTrabajadasStr, sueldoStr);
+	do
+	{
+		r = fscanf(pFile, "%[^,],%[^,],%[^,],%[^\n]\n", idStr, nombreStr,
+				horasTrabajadasStr, sueldoStr);
+		if (r == 4)
 		{
-				r = fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",idStr,nombreStr,horasTrabajadasStr,sueldoStr);
-				if(r==4)
-				employee_newParametros(idStr,nombreStr,horasTrabajadasStr,sueldoStr);
-				else
-				break;
-		}while(!feof(pFile));
-			fclose(pFile);
-    return RETORNO_EXITOSO;
+			printf("Lei: %s %s %s %s\n", idStr, nombreStr, horasTrabajadasStr,
+					sueldoStr);
+			empleado = employee_newParametros(idStr, nombreStr,
+					horasTrabajadasStr, sueldoStr);
+			if (empleado != NULL)
+			{
+				if (!ll_add(pArrayListEmployee, empleado))
+				{
+					retorno = RETORNO_EXITOSO;
+				}
+			}
+		}
+		else
+		{
+			break;
+		}
+	} while (!feof(pFile));
+	return retorno;
 }
 
 /** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo binario).
