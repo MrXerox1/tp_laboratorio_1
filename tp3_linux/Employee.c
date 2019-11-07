@@ -183,27 +183,25 @@ static int isValidSueldoString(char *sueldo)
 
 	return retorno;
 }
-int controller_IdMaxima(int *idMaxima,Employee *cliente,int size)
- {
+int empleadoBuscarID(LinkedList *pArrayListEmployee, int size, int valorBuscado,
+		int *posicion)
+{
+	__fpurge(stdin);
+	Employee *empleado;
 	int retorno = ERROR;
-
-	int id;
-	int flag = 0;
 	int i;
-	if (cliente != NULL && cliente != NULL && size > 0 && size > 0)
+	if (pArrayListEmployee != NULL && size > 0)
 	{
-		for (i = 1; i <= size; i++)
+		for (i = 0; i < size; i++)
 		{
-			id=cliente[i].id;
-
-			if (id > *idMaxima || flag == 0)
+			empleado = ll_get(pArrayListEmployee, i);
+			if (empleado->id == valorBuscado)
 			{
-				flag = 1;
-				*idMaxima = id;
-
+				retorno = RETORNO_EXITOSO;
+				*posicion = i;
+				break;
 			}
 		}
-		retorno = id;
 	}
 	return retorno;
 }

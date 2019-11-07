@@ -29,8 +29,7 @@ int employee_getHorasTrabajadasString(Employee* this,char* horasTrabajadas);
 
 int employee_setSueldoString(Employee* this,char* sueldo);
 int employee_getSueldoString(Employee* this,char* sueldo);
-int controller_IdMaxima(int *idMaxima,Employee *cliente,int size);
-
+int empleadoBuscarID(LinkedList *pArrayListEmployee, int size, int valorBuscado,int *posicion);
 
 
 #endif // employee_H_INCLUDED
