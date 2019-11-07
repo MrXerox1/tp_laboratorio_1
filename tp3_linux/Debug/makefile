@@ -22,19 +22,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: TP3
+all: tp3_linux
 
 # Tool invocations
-TP3: $(OBJS) $(USER_OBJS)
+tp3_linux: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc  -o "TP3" $(OBJS) $(USER_OBJS) $(LIBS) /home/alumno/eclipse-workspace/Sergio/tp_laboratorio_1/tp3_linux/LinkedList.a
+	gcc  -o "tp3_linux" $(OBJS) $(USER_OBJS) $(LIBS) /home/alumno/eclipse-workspace/Sergio/tp_laboratorio_1/tp3_linux/LinkedList.a
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) TP3
+	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) tp3_linux
 	-@echo ' '
 
 .PHONY: all clean dependents

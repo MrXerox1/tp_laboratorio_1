@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdio_ext.h>
 #include "LinkedList.h"
 #include "Employee.h"
-
+#include "parser.h"
 
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
  *
@@ -60,7 +61,35 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int retorno = ERROR;
+	int idMaximo;
+	int size = ll_len(pArrayListEmployee);
+	Employee *this;
+	this = employee_new();
+	if (this != NULL)
+	{
+		if(controller_IdMaxima(&idMaximo,this,size)!=ERROR){
+			this->id=idMaximo;
+		}
+		printf("Ingrese el Nombre \n");
+		__fpurge(stdin);
+		fgets(this->nombre, sizeof(this->nombre), stdin);
+		printf("\nIngrese cantidad de horas trabajdas\n");
+		__fpurge(stdin);
+		scanf("%d", &this->horasTrabajadas);
+		printf("\nIngrese el sueldo \n");
+		__fpurge(stdin);
+		scanf("%d", &this->sueldo);
+
+		if (this != NULL)
+		{
+			if (!ll_add(pArrayListEmployee, this)) {
+				retorno = 0;
+			}
+		}
+	}
+
+	return retorno;
 }
 
 /** \brief Modificar datos de empleado
@@ -96,7 +125,29 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_ListEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+	  int retorno = ERROR;
+	    Employee* empleado;
+	    int size=ll_len(pArrayListEmployee);
+	    int i;
+
+	    if(pArrayListEmployee != NULL && size > 0)
+	    {
+	        printf("\nID: \t Nombre: \t Horas Trabajadas: \t Sueldo: \n");
+
+	        for (i=0;i<size;i++)
+	        {
+	            empleado = ll_get(pArrayListEmployee, i);
+
+	            if(empleado != NULL)
+	            {
+	                printf ("%d %s %d %d\n", empleado->id,empleado->nombre,empleado->horasTrabajadas,empleado->sueldo);
+	            }
+	        }
+
+	        retorno = RETORNO_EXITOSO;
+	    }
+
+	    return retorno;
 }
 
 /** \brief Ordenar empleados
@@ -134,4 +185,5 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 {
     return 1;
 }
+
 

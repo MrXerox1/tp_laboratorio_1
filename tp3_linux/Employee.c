@@ -23,7 +23,7 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 	{
 		if(		employee_setNombre(this,nombreStr) == EXIT_SUCCESS &&
 				employee_setHorasTrabajadasString(this,horasTrabajadasStr) == EXIT_SUCCESS &&
-				employee_getSueldoString(this,sueldoStr) == EXIT_SUCCESS &&
+				employee_setSueldoString(this,sueldoStr) == EXIT_SUCCESS &&
 				employee_setIdString(this,idStr) == EXIT_SUCCESS )
 		{
 				retorno = this;
@@ -85,8 +85,11 @@ int employee_setNombre(Employee* this,char* nombre)
 
 	if(this != NULL)
 	{
-		strcpy(nombre,this->nombre);
-		retorno = EXIT_SUCCESS;
+		if(strlen(nombre) > 0)
+        {
+            strncpy(this->nombre,nombre, sizeof(this->nombre));
+            retorno = 0;
+        }
 	}
 
 	return retorno;
@@ -108,12 +111,12 @@ int employee_getNombre(Employee* this,char* nombre)
 int employee_getHorasTrabajadasString(Employee* this,char *horasTrabajadas){
 	int retorno = ERROR;
 
-		if(this != NULL && horasTrabajadas != NULL)
-		{
-			sprintf(horasTrabajadas,"%d",this->horasTrabajadas);
-			retorno = EXIT_SUCCESS;
-		}
+	    if(this != NULL && horasTrabajadas != NULL)
+	    {
+	        *horasTrabajadas = this->horasTrabajadas;
 
+	        retorno = 0;
+	    }
 		return retorno;
 }
 int employee_setHorasTrabajadasString(Employee* this,char *horasTrabajadas){
@@ -147,25 +150,23 @@ int employee_getSueldoString(Employee* this,char* sueldo)
 {
 	int retorno = ERROR;
 
-			if(this != NULL && sueldo != NULL)
-			{
-				sprintf(sueldo,"%d",this->sueldo);
-				retorno = EXIT_SUCCESS;
-			}
+	if(this != NULL && sueldo != NULL)
+	    {
+	        *sueldo = this->sueldo;
 
+	        retorno = 0;
+	    }
 			return retorno;
 }
 int employee_setSueldoString(Employee* this,char* sueldo)
 {
 	int retorno = ERROR;
+	if (this != NULL && sueldo != NULL && isValidSueldoString(sueldo)) {
 
-			if(this != NULL && isValidSueldoString(sueldo))
-			{
-				this->sueldo=atoi(sueldo);
-				retorno = EXIT_SUCCESS;
-			}
-
-			return retorno;
+		this->sueldo = atoi(sueldo);
+		retorno = EXIT_SUCCESS;
+	}
+	return retorno;
 }
 
 static int isValidSueldoString(char *sueldo)
@@ -180,6 +181,30 @@ static int isValidSueldoString(char *sueldo)
 		}
 	}
 
+	return retorno;
+}
+int controller_IdMaxima(int *idMaxima,Employee *cliente,int size)
+ {
+	int retorno = ERROR;
+
+	int id;
+	int flag = 0;
+	int i;
+	if (cliente != NULL && cliente != NULL && size > 0 && size > 0)
+	{
+		for (i = 1; i <= size; i++)
+		{
+			id=cliente[i].id;
+
+			if (id > *idMaxima || flag == 0)
+			{
+				flag = 1;
+				*idMaxima = id;
+
+			}
+		}
+		retorno = id;
+	}
 	return retorno;
 }
 

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdio_ext.h>
 #include "LinkedList.h"
 #include "Controller.h"
 #include "Employee.h"
@@ -40,21 +41,35 @@ int main()
 	LinkedList *listaEmpleados = ll_newLinkedList();
 
 	do {
-		fflush(stdin);
+		printf("\nSeleccione una opcion del menu: \n");
+		printf("1)Cargar los datos de los empleados desde el archivo (texto)\n");
+		printf("2)Cargar los datos de los empleados desde el archivo (binario)\n");
+		printf("3)Alta de empleado\n");
+		printf("4)Modificacion de empleado\n");
+		printf("5)Baja de empleado\n");
+		printf("6)Listar empleados\n");
+		printf("7)Ordenar empleados\n");
+		printf("8)Guardar los datos de los empleados en el archivo (texto)\n");
+		printf("9)Guardar los datos de los empleados en el archivo (binario)\n");
+		printf("10)Salir\n");
+		__fpurge(stdin);
 		scanf("%d", &option);
 		switch (option) {
 		case 1:
 			controller_loadFromText("data.csv", listaEmpleados);
 			break;
 		case 2:
+
 			break;
 		case 3:
+			   controller_addEmployee(listaEmpleados);
 			break;
 		case 4:
 			break;
 		case 5:
 			break;
 		case 6:
+			controller_ListEmployee(listaEmpleados);
 			break;
 		case 7:
 			break;

@@ -2,7 +2,8 @@
 #define employee_H_INCLUDED
 #define RETORNO_EXITOSO 0
 #define ERROR -1
-
+#include "Controller.h"
+#include "LinkedList.h"
 typedef struct
 {
     int id;
@@ -28,6 +29,8 @@ int employee_getHorasTrabajadasString(Employee* this,char* horasTrabajadas);
 
 int employee_setSueldoString(Employee* this,char* sueldo);
 int employee_getSueldoString(Employee* this,char* sueldo);
+int controller_IdMaxima(int *idMaxima,Employee *cliente,int size);
+
 
 
 #endif // employee_H_INCLUDED
