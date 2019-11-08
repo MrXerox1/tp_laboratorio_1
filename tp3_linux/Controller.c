@@ -66,15 +66,12 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
 	int retorno = ERROR;
-	int size = ll_len(pArrayListEmployee);
 	Employee *this;
-	Employee *auxThis;
-	auxThis = ll_get(pArrayListEmployee, size-1);
 	this = employee_new();
 	if (this != NULL)
 	{
 
-		this->id=auxThis->id+1;
+		this->id=employee_buscarIdMax(pArrayListEmployee)+1;
 		printf("Ingrese el Nombre \n");
 		__fpurge(stdin);
 		fgets(this->nombre, sizeof(this->nombre), stdin);
@@ -231,7 +228,15 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+    int retorno = 1;
+
+    if(pArrayListEmployee != NULL)
+    {	printf("espere por favor a que termine de ordenar\n");
+        ll_sort(pArrayListEmployee, employee_sort, 0);
+        printf("listo\n");
+        retorno = 0;
+    }
+    return retorno;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
@@ -243,7 +248,29 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int i;
+	Employee* auxEmpleado;
+	int size = ll_len(pArrayListEmployee);
+	FILE* pfile;
+		pfile=fopen(path,"w");
+		if(pfile==NULL)
+		{
+			printf("el archivo no existe");
+			exit(ERROR);
+		}
+		else
+		{
+		fprintf(pfile, "id\tnombre\thoras trabajadas\tsueldo");
+		for (i = 1; i < size; i++)
+		{
+			auxEmpleado = ll_get(pArrayListEmployee, i);
+			fprintf(pfile, "%d,%s,%d,%d\n", auxEmpleado->id,
+					auxEmpleado->nombre, auxEmpleado->horasTrabajadas,
+					auxEmpleado->sueldo);
+		}
+		}
+		fclose(pfile);
+	    return RETORNO_EXITOSO;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
@@ -255,7 +282,22 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int i;
+		Employee* auxEmpleado;
+		int size = ll_len(pArrayListEmployee);
+		FILE* pfile;
+			pfile=fopen(path,"wb");
+			if(pfile==NULL)
+			{
+				printf("el archivo no existe");
+				exit(ERROR);
+			}
+			else
+			{
+
+			}
+			fclose(pfile);
+		    return RETORNO_EXITOSO;
 }
 
 

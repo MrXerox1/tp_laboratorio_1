@@ -24,8 +24,8 @@ int parser_EmployeeFromText(FILE *pFile, LinkedList *pArrayListEmployee)
 				horasTrabajadasStr, sueldoStr);
 		if (r == 4)
 		{
-			printf("Lei: %s %s %s %s\n", idStr, nombreStr, horasTrabajadasStr,
-					sueldoStr);
+			/*printf("Lei: %s %s %s %s\n", idStr, nombreStr, horasTrabajadasStr,
+					sueldoStr);*/
 			empleado = employee_newParametros(idStr, nombreStr,
 					horasTrabajadasStr, sueldoStr);
 			if (empleado != NULL)
@@ -53,6 +53,9 @@ int parser_EmployeeFromText(FILE *pFile, LinkedList *pArrayListEmployee)
  */
 int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
-
-    return 1;
+	int retorno = ERROR;
+	int r;
+	Employee *empleado;
+	r =
+return retorno;
 }

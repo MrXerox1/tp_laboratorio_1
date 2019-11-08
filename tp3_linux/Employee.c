@@ -183,6 +183,47 @@ static int isValidSueldoString(char *sueldo)
 
 	return retorno;
 }
+
+int employee_buscarIdMax(LinkedList *pArrayListEmployee)
+{
+	int flag = 0;
+	int maxId;
+	int i;
+	Employee *auxEmpleado;
+	int size = ll_len(pArrayListEmployee);
+	for (i = 1; i < size; i++)
+	{
+		auxEmpleado = ll_get(pArrayListEmployee, i);
+		if (auxEmpleado->id > maxId || flag == 0)
+		{
+			flag = 1;
+			maxId = auxEmpleado->id;
+		}
+	}
+
+	return maxId;
+}
+
+
+
+int employee_sort(void* Employee1, void* Employee2)
+{
+	Employee* empleado1 = (Employee*) Employee1;
+	Employee* empleado2 = (Employee*) Employee2;
+	if(empleado1->sueldo>empleado2->sueldo)
+	{
+		return 1;
+	}
+	else if(empleado1->sueldo<empleado2->sueldo)
+	{
+		return -1;
+	}
+	else
+	{
+		return 0;
+	}
+
+}
 int empleadoBuscarID(LinkedList *pArrayListEmployee, int size, int valorBuscado,
 		int *posicion)
 {

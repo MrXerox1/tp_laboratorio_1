@@ -30,6 +30,8 @@ int employee_getHorasTrabajadasString(Employee* this,char* horasTrabajadas);
 int employee_setSueldoString(Employee* this,char* sueldo);
 int employee_getSueldoString(Employee* this,char* sueldo);
 int empleadoBuscarID(LinkedList *pArrayListEmployee, int size, int valorBuscado,int *posicion);
+int employee_sort(void* Employee1, void* Employee2);
+int employee_buscarIdMax(LinkedList *pArrayListEmployee);
 
 
 #endif // employee_H_INCLUDED
