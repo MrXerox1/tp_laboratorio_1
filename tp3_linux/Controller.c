@@ -51,6 +51,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 	} else
 	{
 		parser_EmployeeFromBinary(pfile, pArrayListEmployee);
+
 	}
 	fclose(pfile);
 	return RETORNO_EXITOSO;
@@ -283,21 +284,21 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 {
 	int i;
-		Employee* auxEmpleado;
-		int size = ll_len(pArrayListEmployee);
-		FILE* pfile;
-			pfile=fopen(path,"wb");
-			if(pfile==NULL)
-			{
-				printf("el archivo no existe");
-				exit(ERROR);
-			}
-			else
-			{
-
-			}
-			fclose(pfile);
-		    return RETORNO_EXITOSO;
+	Employee *auxEmpleado;
+	FILE *pfile;
+	pfile = fopen(path, "wb");
+	if (pfile == NULL) {
+		printf("el archivo no existe");
+		exit(ERROR);
+	} else {
+		for (i = 0; i < ll_len(pArrayListEmployee); i++)
+		{
+			auxEmpleado = ll_get(pArrayListEmployee, i);
+			fwrite(auxEmpleado, sizeof(Employee), 1, pfile);
+		}
+	}
+	fclose(pfile);
+	return RETORNO_EXITOSO;
 }
 
 
