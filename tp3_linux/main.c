@@ -37,6 +37,7 @@ enum colors {lets,find,course};
 
 int main()
 {
+	int flag=0;
 	int option;
 	LinkedList *listaEmpleados = ll_newLinkedList();
 
@@ -54,33 +55,93 @@ int main()
 		printf("10)Salir\n");
 		__fpurge(stdin);
 		scanf("%d", &option);
-		switch (option) {
+
+		switch (option)
+		{
 		case 1:
-			controller_loadFromText("data.csv", listaEmpleados);
+			if (flag == 0)
+			{
+				controller_loadFromText("data.csv", listaEmpleados);
+				flag = 1;
+			}
+			else
+			{
+							printf("no puede cargar ambas maneras a la vez\n");
+			}
 			break;
 		case 2:
-			controller_loadFromBinary("data.bin", listaEmpleados);
+			if (flag == 0)
+			{
+				controller_loadFromBinary("data.bin", listaEmpleados);
+				flag = 1;
+			}
+			else {
+				printf("no puede cargar ambas maneras a la vez\n");
+			}
 			break;
 		case 3:
-			   controller_addEmployee(listaEmpleados);
+			if (flag == 1)
+			{
+				controller_addEmployee(listaEmpleados);
+			}
+			else
+			{
+				printf("debe cargar de forma texto o binario antes de usar otra opcion\n");
+			}
 			break;
 		case 4:
-			controller_editEmployee(listaEmpleados);
+			if (flag == 1)
+			{
+				controller_editEmployee(listaEmpleados);
+			}
+			else
+			{
+				printf("debe cargar de forma texto o binario antes de usar otra opcion\n");
+			}
 			break;
 		case 5:
-			controller_removeEmployee(listaEmpleados);
+			if (flag == 1)
+			{
+				controller_removeEmployee(listaEmpleados);
+			}
+			else
+			{
+				printf("debe cargar de forma texto o binario antes de usar otra opcion\n");
+			}
 			break;
 		case 6:
-			controller_ListEmployee(listaEmpleados);
+			if (flag == 1)
+			{
+				controller_ListEmployee(listaEmpleados);
+			}
+			else
+			{
+				printf("debe cargar de forma texto o binario antes de usar otra opcion\n");
+			}
 			break;
 		case 7:
-			controller_sortEmployee(listaEmpleados);
+			if (flag == 1)
+			{
+				controller_sortEmployee(listaEmpleados);
+			}
+			else
+			{
+				printf("debe cargar de forma texto o binario antes de usar otra opcion\n");
+			}
 			break;
 		case 8:
-			controller_saveAsText("data_Escribir.csv",listaEmpleados);
+			if (flag == 1) {
+				controller_saveAsText("data_Escribir.csv", listaEmpleados);
+			} else {
+				printf("debe cargar de forma texto o binario antes de usar otra opcion\n");
+			}
 			break;
 		case 9:
-			controller_saveAsBinary("data.bin",listaEmpleados);
+			if (flag == 1) {
+				controller_saveAsBinary("data.bin", listaEmpleados);
+			} else {
+				printf("debe cargar de forma texto o binario antes de usar otra opcion\n");
+			}
 			break;
 		case 10:
 			break;
@@ -90,7 +151,7 @@ int main()
 	} while (option != 10);
 	return 0;
 
-	printf("%d %d %d",course,lets,find);
+	printf("%d %d %d", course, lets, find);
 	return 0;
 }
 

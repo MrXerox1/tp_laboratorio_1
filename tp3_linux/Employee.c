@@ -51,16 +51,16 @@ int employee_setIdString(Employee *this,char *id)
 	return retorno;
 }
 
-int employee_getIdString(Employee *this,char *id)
+int employee_getIdString(Employee *this,int *id)
 {
 	int retorno = ERROR;
 
-	if(this != NULL && id != NULL)
-	{
-		sprintf(id,"%d",this->id);
-		retorno = EXIT_SUCCESS;
-	}
+		if (this != NULL && id != NULL)
+		{
+			*id = this->sueldo;
 
+			retorno = RETORNO_EXITOSO;
+		}
 	return retorno;
 }
 
@@ -99,16 +99,18 @@ int employee_getNombre(Employee* this,char* nombre)
 {
 	int retorno = EXIT_ERROR;
 
-	if(this != NULL && nombre != NULL)
-	{
-		strcpy(this->nombre,nombre);
-		retorno = EXIT_SUCCESS;
-	}
+	 if(this != NULL && nombre != NULL)
+	    {
+	        strncpy(nombre,this->nombre,128);
+
+	        retorno = 0;
+	    }
+	    return retorno;
 
 	return retorno;
 }
 
-int employee_getHorasTrabajadasString(Employee* this,char *horasTrabajadas){
+int employee_getHorasTrabajadasString(Employee* this,int *horasTrabajadas){
 	int retorno = ERROR;
 
 	    if(this != NULL && horasTrabajadas != NULL)
@@ -146,7 +148,7 @@ static int isValidhorasTrabaString(char *horasTrabajadas)
 	return retorno;
 }
 
-int employee_getSueldoString(Employee* this,char* sueldo)
+int employee_getSueldoString(Employee* this,int* sueldo)
 {
 	int retorno = ERROR;
 

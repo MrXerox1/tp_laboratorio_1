@@ -172,17 +172,25 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 	int retorno = ERROR;
 	int posicion;
 	int id;
+	Employee *empleado;
 	int size = ll_len(pArrayListEmployee);
 
 	__fpurge(stdin);
-	if (getInt(&id, MENSAJE, MENSAJE_ERROR, MINIMO, size, REINTENTOS) == 0) {
+	if (getInt(&id, MENSAJE, MENSAJE_ERROR, MINIMO, size, REINTENTOS) == 0)
+	{
 		if (empleadoBuscarID(pArrayListEmployee, size, id,
-				&posicion)==RETORNO_EXITOSO) {
-			ll_remove(pArrayListEmployee,posicion);
-			printf("el empleado con la id: %d  fue borrado",id);
-			retorno=RETORNO_EXITOSO;
+				&posicion)==RETORNO_EXITOSO)
+		{
+			empleado = ll_get(pArrayListEmployee, posicion);
+				ll_remove(pArrayListEmployee, posicion);
+				printf("el empleado %s id: %d \n",empleado->nombre,empleado->id);
+				retorno = RETORNO_EXITOSO;
+			}
+			else
+			{
+				printf("no se elimino ningun empleado");
+			}
 		}
-	}
 	return retorno;
 }
 
