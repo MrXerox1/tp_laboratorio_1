@@ -5,7 +5,6 @@
 #include "Employee.h"
 #include "utn.h"
 static int isValidIdString(char *id);
-static int isValidhorasTrabaString(char *horasTrabajadas);
 static int isValidSueldoString(char *sueldo);
 
 Employee* employee_new()
@@ -57,7 +56,7 @@ int employee_getIdString(Employee *this,int *id)
 
 		if (this != NULL && id != NULL)
 		{
-			*id = this->sueldo;
+			*id = this->id;
 
 			retorno = RETORNO_EXITOSO;
 		}
@@ -124,28 +123,13 @@ int employee_getHorasTrabajadasString(Employee* this,int *horasTrabajadas){
 int employee_setHorasTrabajadasString(Employee* this,char *horasTrabajadas){
 	int retorno = ERROR;
 
-		if(this != NULL && isValidhorasTrabaString(horasTrabajadas))
+		if(this != NULL)
 		{
 			this->horasTrabajadas=atoi(horasTrabajadas);
 			retorno = EXIT_SUCCESS;
 		}
 
 		return retorno;
-}
-
-static int isValidhorasTrabaString(char *horasTrabajadas)
-{
-	int retorno = ERROR;
-
-	if(horasTrabajadas != NULL)
-	{
-		if(esSoloNumerosPositivos(horasTrabajadas,"\nERROR_HORA_TRABAJO"))
-		{
-			retorno = EXIT_SUCCESS;
-		}
-	}
-
-	return retorno;
 }
 
 int employee_getSueldoString(Employee* this,int* sueldo)
@@ -190,16 +174,18 @@ int employee_buscarIdMax(LinkedList *pArrayListEmployee)
 {
 	int flag = 0;
 	int maxId;
+	int idAux;
 	int i;
 	Employee *auxEmpleado;
 	int size = ll_len(pArrayListEmployee);
 	for (i = 1; i < size; i++)
 	{
 		auxEmpleado = ll_get(pArrayListEmployee, i);
-		if (auxEmpleado->id > maxId || flag == 0)
+		employee_getIdString(auxEmpleado, &idAux);
+		if (idAux> maxId || flag == 0)
 		{
 			flag = 1;
-			maxId = auxEmpleado->id;
+			maxId = idAux;
 		}
 	}
 
@@ -210,13 +196,17 @@ int employee_buscarIdMax(LinkedList *pArrayListEmployee)
 
 int employee_sort(void* Employee1, void* Employee2)
 {
+	int sueldo1;
+	int sueldo2;
 	Employee* empleado1 = (Employee*) Employee1;
 	Employee* empleado2 = (Employee*) Employee2;
-	if(empleado1->sueldo>empleado2->sueldo)
+	employee_getSueldoString(empleado1, &sueldo1);
+	employee_getSueldoString(empleado2, &sueldo2);
+	if(sueldo1>sueldo2)
 	{
 		return 1;
 	}
-	else if(empleado1->sueldo<empleado2->sueldo)
+	else if(sueldo1<sueldo2)
 	{
 		return -1;
 	}
@@ -232,13 +222,15 @@ int empleadoBuscarID(LinkedList *pArrayListEmployee, int size, int valorBuscado,
 	__fpurge(stdin);
 	Employee *empleado;
 	int retorno = ERROR;
+	int idAux;
 	int i;
 	if (pArrayListEmployee != NULL && size > 0)
 	{
 		for (i = 0; i < size; i++)
 		{
 			empleado = ll_get(pArrayListEmployee, i);
-			if (empleado->id == valorBuscado)
+			employee_getIdString(empleado, &idAux);
+			if (idAux == valorBuscado)
 			{
 				retorno = RETORNO_EXITOSO;
 				*posicion = i;
