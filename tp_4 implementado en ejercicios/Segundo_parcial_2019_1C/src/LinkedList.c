@@ -516,18 +516,18 @@ LinkedList* ll_clone(LinkedList* this)
 
 /** \brief Ordena los elementos de la lista utilizando la funcion criterio recibida como parametro
  * \param pList LinkedList* Puntero a la lista
- * \param pFunc (*pFunc) Puntero a la funcion criterio
+ * \param fn (*fn) Puntero a la funcion criterio
  * \param order int  [1] Indica orden ascendente - [0] Indica orden descendente
  * \return int Retorna  (-1) Error: si el puntero a la listas es NULL
                                 ( 0) Si ok
  */
-int ll_sort(LinkedList *this, int (*pFunc)(void*, void*), int order) {
+int ll_sort(LinkedList *this, int (*fn)(void*, void*), int order) {
 	int returnAux = -1;
 	int i, j;
 	Node *nodeAux;
 	Node *nodeUno;
 	Node *nodeDos;
-	if (this != NULL && pFunc != NULL && (order == 0 || order == 1))
+	if (this != NULL && fn != NULL && (order == 0 || order == 1))
 	{
 			for (i = 0; i < ll_len(this) - 1; i++) {
 				nodeUno = getNode(this, i);
@@ -539,7 +539,7 @@ int ll_sort(LinkedList *this, int (*pFunc)(void*, void*), int order) {
 
 					if (order == 1) //ascendente menor a mayor
 							{
-						if (pFunc(nodeUno->pElement, nodeDos->pElement) == -1) {
+						if (fn(nodeUno->pElement, nodeDos->pElement) == -1) {
 							nodeAux = nodeDos->pElement;
 							nodeDos->pElement = nodeUno->pElement;
 							nodeUno->pElement = nodeAux;
@@ -548,7 +548,7 @@ int ll_sort(LinkedList *this, int (*pFunc)(void*, void*), int order) {
 					}
 					else if (order == 0) //descendete mayor a menor
 					{
-						if (pFunc(nodeUno->pElement, nodeDos->pElement) == -1)
+						if (fn(nodeUno->pElement, nodeDos->pElement) == -1)
 						{
 							nodeAux = nodeUno->pElement;
 							nodeUno->pElement = nodeDos->pElement;
@@ -562,13 +562,13 @@ int ll_sort(LinkedList *this, int (*pFunc)(void*, void*), int order) {
 	return returnAux;
 }
 
-int ll_map(LinkedList* this, int (*pFunc)(void*)) // for + get
+int ll_map(LinkedList* this, int (*fn)(void*))
 {
     int returnAux = -1;
     int i;
     void* pElement;
 
-    if(this != NULL && pFunc != NULL)
+    if(this != NULL && fn != NULL)
     {
         returnAux = 0;
 
@@ -576,13 +576,29 @@ int ll_map(LinkedList* this, int (*pFunc)(void*)) // for + get
         {
             pElement = ll_get(this, i);
 
-            if(pElement != NULL && pFunc(pElement) == -1) // busco que pFunc retorne error
+            if(pElement != NULL && fn(pElement) == -1)
             {	printf("soy un forro%d\n",i);
-                returnAux = -1*i; // para retornar que estaba todo ok hasta (-1 * i) el ìndice que dio error
+                returnAux = -1*i;
                 break;
             }
         }
     }
 
+    return returnAux;
+}
+
+int ll_count(LinkedList* this,int (*fn)(void*))
+{
+    int returnAux = -1;
+    int i;
+
+    if(this != NULL && fn != NULL)
+    {
+        returnAux = 0;
+        for(i=0; i<ll_len(this); i++)
+        {
+        	returnAux = returnAux + fn(ll_get(this,i));
+        }
+    }
     return returnAux;
 }

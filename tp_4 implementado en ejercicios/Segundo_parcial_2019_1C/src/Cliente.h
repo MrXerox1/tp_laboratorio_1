@@ -46,5 +46,9 @@ int cliente_getCantidad(Cliente* this,int* horasTrabajadas);
 int cliente_setPrecio_unitario(Cliente* this,char* sueldo);
 int cliente_getPrecio_unitario(Cliente* this,float* sueldo);
 
+int cliente_Contar_CantFotosTotal(void* pElement);
+int cliente_Contar_CantPolaroidReveladas(void* pElement);
+int cliente_Contar_Cantmayor150(void* pElement);
+int cliente_Contar_CantMayor300(void* pElement);
 
 #endif /* CLIENTE_H_ */

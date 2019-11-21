@@ -7,8 +7,10 @@
 
 #ifndef CONTROLLER_H_
 #define CONTROLLER_H_
+#include "LinkedList.h"
 
-
+int controller_cargarPorTexto(char* path , LinkedList* pArrayListEmployee);
+int controller_generarArchivoInformes(char* path , LinkedList* pArrayListEmployee);
 
 
 

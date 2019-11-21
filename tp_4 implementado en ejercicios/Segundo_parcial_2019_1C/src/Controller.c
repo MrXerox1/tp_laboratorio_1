@@ -7,8 +7,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Cliente.h"
-
+#include "Parser.h"
 #include "LinkedList.h"
+
 
 int controller_cargarPorTexto(char* path , LinkedList* pArrayListEmployee)
 {
@@ -21,7 +22,7 @@ int controller_cargarPorTexto(char* path , LinkedList* pArrayListEmployee)
 	}
 	else
 	{
-		parser_parseClientes(pfile,pArrayListEmployee);
+		parser_Clientes(pfile,pArrayListEmployee);
 	}
 	fclose(pfile);
     return RETORNO_EXITOSO;
@@ -35,30 +36,40 @@ int controller_cargarPorTexto(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_generarArchivoInformes(char* path , LinkedList* pArrayListEmployee)
 {
-	int i;
+
 	int CantFotosTotales;
 	int CantMayor150;
-	- CantMayor300;
-	- CantdeReveladas;
-	Cliente *auxCliente;
-	int size = ll_len(pArrayListEmployee);
-	FILE* pfile;
-		pfile=fopen(path,"w");
-		if(pfile==NULL)
-		{
-			printf("el archivo no existe");
-			exit(ERROR);
-		}
-		else
-		{
-		fprintf(pfile, "id\tnombre\thoras trabajadas\tsueldo\n");
-		for (i = 0; i < size; i++)
-		{
-			auxCliente = ll_get(pArrayListEmployee, i);
-			fprintf(pfile, "%d,\n",);
-		}
-		return RETORNO_EXITOSO;
-		}
-		fclose(pfile);
+	int CantMayor300;
+	int CantDePolaroReveladas;
+	FILE *pfile;
+	pfile = fopen(path, "w");
+	if (pfile == NULL)
+	{
+		printf("el archivo no existe");
+		exit(ERROR);
+	} else
+	{
+		CantFotosTotales=ll_count(pArrayListEmployee,cliente_Contar_CantFotosTotal);
+		printf(" fotos 1 %d\n",CantFotosTotales);
+		CantMayor150=ll_count(pArrayListEmployee,cliente_Contar_Cantmayor150);
+		printf(" fotos 2 %d\n",CantMayor150);
+		CantMayor300=ll_count(pArrayListEmployee,cliente_Contar_CantMayor300);
+		printf(" fotos 3 %d\n",CantMayor300);
+		CantDePolaroReveladas=ll_count(pArrayListEmployee,cliente_Contar_CantPolaroidReveladas);
+		printf(" fotos 4 %d\n",CantDePolaroReveladas);
+		fprintf(pfile,
+			"********************\n"
+			"Informe de ventas\n"
+			"********************\n"
+			"- Cantidad de fotos reveladas totales: %d\n"
+			"- Cantidad de ventas por un monto mayor a $150: %d\n"
+			"- Cantidad de ventas por un monto mayor a $300: %d\n"
+			"- Cantidad de fotos polaroids reveladas: %d\n"
+			"********************\n",
+			CantFotosTotales, CantMayor150, CantMayor300,
+			CantDePolaroReveladas);
+	}
+	fclose(pfile);
+	return RETORNO_EXITOSO;
 
 }

@@ -11,23 +11,46 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Cliente.h"
+#include "LinkedList.h"
+#include "Controller.h"
+
+
 int main()
 {
     // Definir lista de empleados
-    LinkedList* listaEmpleados;
+    LinkedList* ListaCliente;
 
     // Crear lista empledos
-    //...
-    listaEmpleados = ll_newLinkedList();
+    ListaCliente = ll_newLinkedList();
+
     // Leer empleados de archivo data.csv
-    if(controller_cargarPorTexto("data.csv", listaEmpleados)==0)
+    if(controller_cargarPorTexto("data.csv", ListaCliente)==0)
     {
-        // Calcular sueldos
-        printf("Calculando sueldos de empleados\n");
-        ll_map(listaEmpleados,em_calcularSueldo);
+        // Calcular fotos totales
+        printf("Calculando Fotos totales\n");
+
+
+        Cliente *cliente;
+        int size = ll_len(ListaCliente);
+        int i;
+
+	    if(ListaCliente != NULL && size > 0)
+	    {
+
+	        for (i=0;i<size;i++)
+	        {
+	        	cliente = ll_get(ListaCliente, i);
+
+	            if(cliente != NULL)
+	            {
+	                printf ("%d %s %s %d %f %s\n", cliente->id_venta, cliente->fecha, cliente->tipo_foto, cliente->cantidad,cliente-> precio_unitario,cliente->cuit_cliente);
+	            }
+	        }
+	    }
+
 
         // Generar archivo de salida
-        if(controller_generarArchivoSueldos("informes.csv",listaEmpleados)==0)
+        if(controller_generarArchivoInformes("informes.csv",ListaCliente)==0)
         {
             printf("Archivo generado correctamente\n");
         }

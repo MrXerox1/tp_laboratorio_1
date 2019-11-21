@@ -1,6 +1,12 @@
 /*
  * Cliente.c
  *
+ *  Created on: 21 nov. 2019
+ *      Author: sergio
+ */
+/*
+ * Cliente.c
+ *
  *  Created on: 20 nov. 2019
  *      Author: sergio
  */
@@ -10,6 +16,7 @@
 #include <string.h>
 #include "Cliente.h"
 #include "utn.h"
+
 static int isValidId(char *id);
 
 Cliente* cliente_new() {
@@ -19,7 +26,7 @@ Cliente* cliente_new() {
 void cliente_delete(Cliente *this) {
 	free(this);
 }
-Cliente* cliente_newParametros(char *idStr, char *cuitStr, char *cantidadStr,char *fechaStr, char *tipoFotoStr, char* precioStr) {
+Cliente* cliente_newParametros(char *idStr, char *fechaStr , char *tipoFotoStr ,char *cantidadStr, char *precioStr, char*cuitStr) {
 	Cliente *retorno = NULL;
 	Cliente *this;
 	this = cliente_new();
@@ -54,13 +61,12 @@ int cliente_setId_venta(Cliente *this, char *id) {
 int cliente_getId_venta(Cliente *this, int *id) {
 	int retorno = ERROR;
 
-	if (this != NULL && id != NULL) {
-		*id = this->id_venta;
+		if (this != NULL && id != NULL) {
+			*id = this->id_venta;
 
-		retorno = RETORNO_EXITOSO;
-	}
-	return retorno;
-
+			retorno = RETORNO_EXITOSO;
+		}
+		return retorno;
 }
 
 static int isValidId(char *id) {
@@ -91,7 +97,7 @@ int cliente_getTipo_foto(Cliente *this, char *foto) {
 	int retorno = ERROR;
 
 	if (this != NULL && foto != NULL) {
-		strncpy(foto, this->tipo_foto, sizeof(this->tipo_foto));
+		strncpy(foto, this->tipo_foto,50);
 
 		retorno = 0;
 	}
@@ -116,7 +122,7 @@ int cliente_getFecha(Cliente *this, char *fecha) {
 	int retorno = ERROR;
 
 	if (this != NULL && fecha != NULL) {
-		strncpy(fecha, this->fecha, sizeof(this->fecha));
+		strncpy(fecha, this->fecha, 50);
 
 		retorno = 0;
 	}
@@ -139,7 +145,7 @@ int cliente_getCuit_cliente(Cliente *this, char *cuit) {
 	int retorno = ERROR;
 
 		if (this != NULL && cuit != NULL) {
-			strncpy(cuit, this->cuit_cliente, sizeof(this->cuit_cliente));
+			strncpy(cuit, this->cuit_cliente, 50);
 
 			retorno = 0;
 		}
@@ -149,11 +155,10 @@ int cliente_getCuit_cliente(Cliente *this, char *cuit) {
 int cliente_setCantidad(Cliente *this, char *cantidad) {
 	int retorno = ERROR;
 
-	if (this != NULL && cantidad != NULL) {
-		*cantidad = this->cantidad;
-
-		retorno = 0;
-	}
+		if (this != NULL && isValidId(cantidad)) {
+			this->cantidad = atoi(cantidad);
+			retorno = EXIT_SUCCESS;
+		}
 	return retorno;
 }
 int cliente_getCantidad(Cliente *this, int *cantidad) {
@@ -187,4 +192,67 @@ int cliente_getPrecio_unitario(Cliente *this, float *precio) {
 			retorno = 0;
 		}
 		return retorno;
+}
+
+int cliente_Contar_CantFotosTotal(void* pElement)
+{
+	int retorno = ERROR;
+	Cliente *cliente;
+	cliente = (Cliente*) pElement;
+
+	if (pElement != NULL && cliente->cantidad >= 0)
+	{
+		retorno = cliente->cantidad;
+	}
+	else
+	{
+		retorno = 0;
+	}
+	return retorno;
+}
+
+int cliente_Contar_CantMayor300(void* pElement)
+{
+	int retorno = ERROR;
+	Cliente *cliente;
+	cliente = (Cliente*) pElement;
+
+	if (pElement != NULL && cliente->cantidad >= 300)
+	{
+		retorno = cliente->cantidad;
+	}
+	else
+	{
+		retorno = 0;
+	}
+	return retorno;
+}
+
+int cliente_Contar_Cantmayor150(void* pElement)
+{
+	int retorno = ERROR;
+		Cliente *cliente;
+		cliente = (Cliente*) pElement;
+
+		if (pElement != NULL && cliente->cantidad >= 150)
+		{
+			retorno = cliente->cantidad;
+		}
+		else
+		{
+			retorno = 0;
+		}
+		return retorno;
+}
+
+int cliente_Contar_CantPolaroidReveladas(void* pElement)
+{
+	int retorno = 0;
+	Cliente *cliente;
+	cliente = (Cliente*) pElement;
+	if (pElement != NULL && strcmp(cliente->tipo_foto, "POLAROID_11x9")==0)
+	{
+			retorno = cliente->cantidad;
+	}
+	return retorno;
 }
