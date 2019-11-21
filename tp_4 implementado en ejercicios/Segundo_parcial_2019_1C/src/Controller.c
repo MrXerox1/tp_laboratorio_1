@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include "Cliente.h"
 
+#include "LinkedList.h"
+
 int controller_cargarPorTexto(char* path , LinkedList* pArrayListEmployee)
 {
 	FILE* pfile;
@@ -19,12 +21,12 @@ int controller_cargarPorTexto(char* path , LinkedList* pArrayListEmployee)
 	}
 	else
 	{
-		parser_parseEmpleados(pfile,pArrayListEmployee);
+		parser_parseClientes(pfile,pArrayListEmployee);
 	}
 	fclose(pfile);
     return RETORNO_EXITOSO;
 }
-/** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
+/** \brief Guarda los datos de los clientes en el archivo data.csv (modo texto).
  *
  * \param path char*
  * \param pArrayListEmployee LinkedList*
@@ -34,13 +36,11 @@ int controller_cargarPorTexto(char* path , LinkedList* pArrayListEmployee)
 int controller_generarArchivoInformes(char* path , LinkedList* pArrayListEmployee)
 {
 	int i;
-	int id_venta;
-	char cuit_cliente;
-	char fecha[50];
-	char tipo_foto[50];
-	int cantidad;
-	int precio_unitario;
-	Empleado *auxEmpleado;
+	int CantFotosTotales;
+	int CantMayor150;
+	- CantMayor300;
+	- CantdeReveladas;
+	Cliente *auxCliente;
 	int size = ll_len(pArrayListEmployee);
 	FILE* pfile;
 		pfile=fopen(path,"w");
@@ -54,12 +54,8 @@ int controller_generarArchivoInformes(char* path , LinkedList* pArrayListEmploye
 		fprintf(pfile, "id\tnombre\thoras trabajadas\tsueldo\n");
 		for (i = 0; i < size; i++)
 		{
-			auxEmpleado = ll_get(pArrayListEmployee, i);
-			empleado_getId(auxEmpleado, &id);
-			empleado_getNombre(auxEmpleado, nombre);
-			empleado_getHorasTrabajadas(auxEmpleado, &horasTrabajadas);
-			empleado_getSueldo(auxEmpleado,&sueldo);
-			fprintf(pfile, "%d,%s,%d,%d\n", id,nombre, horasTrabajadas,sueldo);
+			auxCliente = ll_get(pArrayListEmployee, i);
+			fprintf(pfile, "%d,\n",);
 		}
 		return RETORNO_EXITOSO;
 		}
